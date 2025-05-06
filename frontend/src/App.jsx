@@ -1,4 +1,5 @@
 import { Routes, Route, Link, useLocation } from "react-router-dom";
+import Home from "./pages/Home";
 
 function App() {
   const location = useLocation();
@@ -21,7 +22,7 @@ function App() {
       </nav>
 
       <Routes>
-        <Route path="/" element={<div>Home</div>} />
+        <Route path="/" element={<Home />} />
         <Route path="/saved" element={<div>Saved Prospects</div>} />
         {/* Fallback for undefined routes */}
         <Route
