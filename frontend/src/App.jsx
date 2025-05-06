@@ -1,5 +1,6 @@
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
+import SavedProspects from "./pages/SavedProspects";
 
 function App() {
   const location = useLocation();
@@ -23,7 +24,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/saved" element={<div>Saved Prospects</div>} />
+        <Route path="/saved" element={<SavedProspects />} />
         {/* Fallback for undefined routes */}
         <Route
           path="*"

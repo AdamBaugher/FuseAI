@@ -6,6 +6,8 @@ function CompanyTable({
     summaries,
     loading,
     handleShowSummary,
+    isSaved,
+    addCompany,
     loadingCompanies
 }) {
     return (
@@ -45,12 +47,22 @@ function CompanyTable({
                                 <td className="p-2 border">{company.industry}</td>
                                 <td className="p-2 border">{company.country}</td>
                                 <td className="p-2 border">{company.size}</td>
-                                <td className="p-2 border w-40 text-center">
+                                <td className="p-2 border w-55 text-center">
                                     <button
                                         onClick={() => handleShowSummary(company)}
                                         className={`${summaries[id] ? "bg-blue-800" : "bg-blue-500"} w-30 text-white px-3 py-1 rounded`}
                                     >
                                         {loading[id] ? "Loading..." : "Show Summary"}
+                                    </button>
+                                    <button
+                                        className={`ml-2 px-5 py-1 bg-blue-500 rounded ${isSaved(company.id)
+                                                ? "bg-blue-900 text-gray-100"
+                                                : "cursor-pointer text-white"
+                                            }`}
+                                        onClick={() => addCompany(company)}
+                                        disabled={isSaved(company.id)}
+                                    >
+                                        Save
                                     </button>
                                 </td>
                             </tr>

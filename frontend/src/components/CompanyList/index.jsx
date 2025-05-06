@@ -1,10 +1,12 @@
-// Main component to render a list of companies with summary modals
+// CompanyList.jsx
+// Main component to render a list of companies with summary modals and save functionality
 
 import { useEffect, useState } from "react";
 import axios from "axios";
 import SummaryModal from "./SummaryModal";
 import CompanyTable from "./CompanyTable";
 import { BACKEND_URL } from "../../constants";
+import { useSavedCompanies } from "../../contexts/SavedCompaniesContext";
 import { capitalizeFirstLetter } from "./helpers";
 
 function CompanyList({ companies, loadingCompanies, page }) {
@@ -14,6 +16,12 @@ function CompanyList({ companies, loadingCompanies, page }) {
 
   // Modal state (open status and selected company ID)
   const [modalData, setModalData] = useState({ open: false, companyId: null });
+
+  // Access saved companies context
+  const { saved, addCompany } = useSavedCompanies();
+
+  // Check if a company has already been saved
+  const isSaved = (id) => saved.some((company) => company.id === id);
 
   // Initialize summaries with any pre-fetched data from `companies` prop
   useEffect(() => {
@@ -40,13 +48,13 @@ function CompanyList({ companies, loadingCompanies, page }) {
   };
 
   // Handle "Show Summary" button click
-  const handleShowSummary = (company) => {
+  const handleShowSummary = async (company) => {
     const id = company._id;
 
     // Fetch summary only if not already loaded or loading
     if (!summaries[id] && !loading[id]) {
       setLoading((prev) => ({ ...prev, [id]: true }));
-      fetchSummary(id);
+      await fetchSummary(id);
     }
 
     // Open modal for the selected company
@@ -71,6 +79,8 @@ function CompanyList({ companies, loadingCompanies, page }) {
         summaries={summaries}
         loading={loading}
         handleShowSummary={handleShowSummary}
+        isSaved={isSaved}
+        addCompany={addCompany}
         loadingCompanies={loadingCompanies}
       />
 
