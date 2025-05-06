@@ -1,6 +1,14 @@
 const express = require("express");
+const {
+    freeTextSearch,
+    filterCompanies,
+    enrichCompany
+} = require("../controllers/companyController");
 
 const router = express.Router();
-router.get("/test", (req, res) => res.json("hello"));
+
+router.post("/free-text", freeTextSearch);         // Free-text search for companies
+router.post("/filter", filterCompanies);           // Filter companies using criteria
+router.get("/enrich/:id", enrichCompany);          // Enrich company data by ID
 
 module.exports = router;
