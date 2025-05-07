@@ -7,8 +7,9 @@
 1. Create a database named fuseai (backend/.env).
 2. Import data from the provided dump:
 ```bash
-mongorestore ./database
+mongorestore --uri mongodb://localhost:27017/fuseai ./database
 ```
+3. Import the ```free_company_dataset.json``` file into the ```companies``` collection of the database.
 
 ### b. Backend
 1. Navigate to the backend directory:
